@@ -9,5 +9,8 @@ namespace Wiki_Dapper.DataAccess.Interfaces
 {
     public interface IArticleRepository : IRepository<Article>
     {
+        IEnumerable<Article> GetByCategory(string category);
+
+        IEnumerable<Article> GetByTitle(string title);
     }
 }

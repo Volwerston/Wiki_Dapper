@@ -11,6 +11,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Wiki_Dapper.Entities.Models;
 using Wiki_Dapper.Models;
+using Wiki_Dapper.DataAccess.Interfaces;
+using Wiki_Dapper.DataAccess.Implementation;
+using System.Configuration;
 
 namespace Wiki_Dapper
 {
@@ -32,6 +35,8 @@ namespace Wiki_Dapper
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<AccountDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddScoped<IUnitOfWork>(sp => new UnitOfWork(Configuration["ConnectionStrings:DefaultConnection"]));
 
             //Populates db
             //services.AddSingleton<PrePopulateData>();

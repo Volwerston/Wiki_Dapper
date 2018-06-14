@@ -16,6 +16,9 @@ namespace Wiki_Dapper.Entities.Models
         public string CreatorId { get; set; }
         public ApplicationUser Creator { get; set; }
 
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
+
         public ICollection<ApplicationUser> ArticleContributors { get; set; }
 
         public Article()
