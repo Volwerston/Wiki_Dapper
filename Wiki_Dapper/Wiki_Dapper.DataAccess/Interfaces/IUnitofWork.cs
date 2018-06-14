@@ -9,5 +9,6 @@ namespace Wiki_Dapper.DataAccess.Interfaces
     public interface IUnitOfWork
     {
         IArticleRepository ArticleRepository { get; }
+        ICategoryRepository CategoryRepository { get; }
     }
 }

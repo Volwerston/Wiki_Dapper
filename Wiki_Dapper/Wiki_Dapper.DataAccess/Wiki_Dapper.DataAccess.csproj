@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementation\ArticleRepository.cs" />
+    <Compile Include="Implementation\CategoryRepository.cs" />
     <Compile Include="Implementation\UnitOfWork.cs" />
     <Compile Include="Interfaces\IArticleRepository.cs" />
     <Compile Include="Interfaces\ICategoryRepository.cs" />

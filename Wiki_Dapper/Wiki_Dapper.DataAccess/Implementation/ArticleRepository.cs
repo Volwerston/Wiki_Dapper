@@ -30,9 +30,42 @@ namespace Wiki_Dapper.DataAccess.Implementation
 
         public IEnumerable<Article> GetAll()
         {
-            string sql = "SELECT * FROM [Articles]";
+            string sql = @"SELECT * FROM [Articles] A
+                           INNER JOIN [AspNetUsers] U
+                           ON A.CreatorId=U.Id
+                           INNER JOIN [Categories] C
+                           ON A.CategoryId=C.Id
+                           INNER JOIN [ArticleContributors] AC
+                           ON A.Id = AC.ArticleId
+                           ";
 
-            return _connection.Query<Article>(sql).ToList();
+            var articleDictionary = new Dictionary<int, Article>();
+
+            var toReturn = _connection.Query<Article, ApplicationUser, Category, ArticleContributor, Article>(sql,
+                (article, appUser, category, articleContributor) => {
+
+                    Article articleEntry;
+
+                    if(!articleDictionary.TryGetValue(article.Id, out articleEntry))
+                    {
+                        articleEntry = article;
+                        articleEntry.Category = category;
+                        articleEntry.Creator = appUser;
+
+                        articleDictionary.Add(articleEntry.Id, articleEntry);
+                    }
+
+                    if (!articleEntry.ArticleContributors.Contains(articleContributor))
+                    {
+                        articleEntry.ArticleContributors.Add(articleContributor);
+                    }
+
+                    return articleEntry;
+                })
+                .Distinct()
+                .ToList();
+
+            return toReturn;
         }
 
         public IEnumerable<Article> GetByCategory(string category)

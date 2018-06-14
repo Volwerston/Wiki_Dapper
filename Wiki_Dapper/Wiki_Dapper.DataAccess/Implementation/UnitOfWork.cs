@@ -12,8 +12,11 @@ namespace Wiki_Dapper.DataAccess.Implementation
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
-        private IArticleRepository _articleRepository;
         private IDbConnection _connection;
+
+        private IArticleRepository _articleRepository;
+        private ICategoryRepository _categoryRepository;
+        
 
         public UnitOfWork(string connectionString)
         {
@@ -30,6 +33,19 @@ namespace Wiki_Dapper.DataAccess.Implementation
                 }
 
                 return _articleRepository;
+            }
+        }
+        
+        public ICategoryRepository CategoryRepository
+        {
+            get
+            {
+                if(_categoryRepository == null)
+                {
+                    _categoryRepository = new CategoryRepository(_connection);
+                }
+
+                return _categoryRepository;
             }
         }
 

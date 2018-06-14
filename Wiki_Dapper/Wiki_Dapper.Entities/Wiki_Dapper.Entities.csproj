@@ -52,6 +52,7 @@
     <Compile Include="Models\AccountDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Article.cs" />
+    <Compile Include="Models\ArticleContributor.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

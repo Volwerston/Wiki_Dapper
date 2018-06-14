@@ -19,11 +19,11 @@ namespace Wiki_Dapper.Entities.Models
         public int CategoryId { get; set; }
         public Category Category { get; set; }
 
-        public ICollection<ApplicationUser> ArticleContributors { get; set; }
+        public ICollection<ArticleContributor> ArticleContributors { get; set; }
 
         public Article()
         {
-            ArticleContributors = new HashSet<ApplicationUser>();
+            ArticleContributors = new HashSet<ArticleContributor>();
         }
     }
 }
