@@ -4,8 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Wiki_Dapper.Entities.Models;
+using Wiki_Dapper.Models;
 
 namespace Wiki_Dapper
 {
@@ -18,10 +23,26 @@ namespace Wiki_Dapper
 
         public IConfiguration Configuration { get; }
 
+        private void ConfigureDal(IServiceCollection services)
+        {
+            services.AddDbContext<AccountDbContext>(
+                options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"], b => b.MigrationsAssembly("Wiki_Dapper"))
+            );
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<AccountDbContext>()
+                .AddDefaultTokenProviders();
+
+            //Populates db
+            //services.AddSingleton<PrePopulateData>();
+            //services.BuildServiceProvider().GetService<PrePopulateData>()?.PrePopulate();
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            ConfigureDal(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,6 +59,7 @@ namespace Wiki_Dapper
             }
 
             app.UseStaticFiles();
+            app.UseIdentity();
 
             app.UseMvc(routes =>
             {
