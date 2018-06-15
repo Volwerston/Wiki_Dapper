@@ -6,51 +6,65 @@
 
 <h2>Index</h2>
 
+@if (User.Identity.IsAuthenticated)
+{
+    <a asp-controller="Article" asp-action="Create">Create Article</a>
+    <a asp-controller="Category" asp-action="Create">Create Category</a>
+}
+
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Id)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CreationTime)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Title)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Text)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CreatorId)
-                </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreationTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Text)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatorId)
+            </th>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <th></th>
+            }
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreationTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Text)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatorId)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreationTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Text)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatorId)
+                </td>
+                @if (User.Identity.IsAuthenticated)
+                {
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "Article", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", "Article", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", "Article", new { id = item.Id })
+                </td>
+                }
+
+            </tr>
+        }
     </tbody>
 </table>

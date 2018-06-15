@@ -21,6 +21,13 @@ namespace Wiki_Dapper.DataAccess.Implementation
             _connection = connection;
         }
 
+        public void Add(Article entity)
+        {
+            string sql = "INSERT INTO [Articles] VALUES(@CreationTime, @Title, @Text, @CreatorId, @CategoryId)";
+
+            _connection.Execute(sql, entity);
+        }
+
         public void Delete(Article entity)
         {
             string sql = "DELETE FROM [Articles] WHERE Id=@id";
@@ -35,7 +42,7 @@ namespace Wiki_Dapper.DataAccess.Implementation
                            ON A.CreatorId=U.Id
                            INNER JOIN [Categories] C
                            ON A.CategoryId=C.Id
-                           INNER JOIN [ArticleContributors] AC
+                           LEFT JOIN [ArticleContributors] AC
                            ON A.Id = AC.ArticleId
                            ";
 
@@ -55,7 +62,7 @@ namespace Wiki_Dapper.DataAccess.Implementation
                         articleDictionary.Add(articleEntry.Id, articleEntry);
                     }
 
-                    if (!articleEntry.ArticleContributors.Contains(articleContributor))
+                    if (articleContributor != null && !articleEntry.ArticleContributors.Contains(articleContributor))
                     {
                         articleEntry.ArticleContributors.Add(articleContributor);
                     }
@@ -80,9 +87,32 @@ namespace Wiki_Dapper.DataAccess.Implementation
 
         public Article GetByKey(object key)
         {
-            string sql = "SELECT * FROM [Articles] WHERE Id=@id";
+            string sql = @"SELECT * FROM [Articles] A
+                           INNER JOIN [AspNetUsers] U
+                           ON A.CreatorId=U.Id
+                           INNER JOIN [Categories] C
+                           ON A.CategoryId=C.Id
+                           LEFT JOIN [ArticleContributors] AC
+                           ON A.Id = AC.ArticleId
+                           WHERE A.Id=@id";
 
-            return _connection.QuerySingleOrDefault<Article>(sql, new { id = key });
+            var toReturn = _connection.Query<Article, ApplicationUser, Category, ArticleContributor, Article>(sql,
+                (article, appUser, category, articleContributor) =>
+                {
+                    article.Category = category;
+                    article.Creator = appUser;
+
+                    if (articleContributor != null )
+                    {
+                        article.ArticleContributors.Add(articleContributor);
+                    }
+
+                    return article;
+                },
+                new { id = key })
+                .FirstOrDefault();
+
+            return toReturn;
         }
 
         public IEnumerable<Article> GetByTitle(string title)

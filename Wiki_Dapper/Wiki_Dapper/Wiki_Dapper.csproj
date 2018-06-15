@@ -22,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Wiki_Dapper.DataAccess\Wiki_Dapper.DataAccess.csproj" />
     <ProjectReference Include="..\Wiki_Dapper.Entities\Wiki_Dapper.Entities.csproj" />
+    <ProjectReference Include="..\Wiki_Dapper.Services\Wiki_Dapper.Services.csproj" />
   </ItemGroup>
 
 </Project>

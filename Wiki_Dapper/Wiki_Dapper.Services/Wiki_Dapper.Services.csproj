@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{151EE0D3-83C9-404B-AC01-E8429D5FBB4F}</ProjectGuid>
+    <ProjectGuid>{1753910A-549E-449C-B92B-8B3FAA72DCA3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Wiki_Dapper.DataAccess</RootNamespace>
-    <AssemblyName>Wiki_Dapper.DataAccess</AssemblyName>
+    <RootNamespace>Wiki_Dapper.Services</RootNamespace>
+    <AssemblyName>Wiki_Dapper.Services</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,11 +30,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dapper, Version=1.50.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dapper.1.50.5\lib\net451\Dapper.dll</HintPath>
+    <Reference Include="Microsoft.Extensions.Identity.Core">
+      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.identity.core\2.0.2\lib\netstandard2.0\Microsoft.Extensions.Identity.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Extensions.Identity.Stores, Version=2.0.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" />
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -44,27 +44,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Implementation\ArticleContributorRepository.cs" />
-    <Compile Include="Implementation\ArticleRepository.cs" />
-    <Compile Include="Implementation\CategoryRepository.cs" />
-    <Compile Include="Implementation\UnitOfWork.cs" />
-    <Compile Include="Interfaces\IArticleContributorRepository.cs" />
-    <Compile Include="Interfaces\IArticleRepository.cs" />
-    <Compile Include="Interfaces\ICategoryRepository.cs" />
-    <Compile Include="Interfaces\ICommentRepository.cs" />
-    <Compile Include="Interfaces\IRepository.cs" />
-    <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="ArticleService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Wiki_Dapper.DataAccess\Wiki_Dapper.DataAccess.csproj">
+      <Project>{151EE0D3-83C9-404B-AC01-E8429D5FBB4F}</Project>
+      <Name>Wiki_Dapper.DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wiki_Dapper.Entities\Wiki_Dapper.Entities.csproj">
       <Project>{393807C5-14DA-4002-B943-682789869181}</Project>
       <Name>Wiki_Dapper.Entities</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

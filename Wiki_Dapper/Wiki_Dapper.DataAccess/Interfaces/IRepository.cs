@@ -10,6 +10,7 @@ namespace Wiki_Dapper.DataAccess.Interfaces
     {
         IEnumerable<T> GetAll();
         T GetByKey(object key);
+        void Add(T entity);
         void Delete(T entity);
         void Update(T entity);
     }

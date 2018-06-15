@@ -16,6 +16,7 @@ namespace Wiki_Dapper.DataAccess.Implementation
 
         private IArticleRepository _articleRepository;
         private ICategoryRepository _categoryRepository;
+        private IArticleContributorRepository _articleContributorRepository;
         
 
         public UnitOfWork(string connectionString)
@@ -46,6 +47,19 @@ namespace Wiki_Dapper.DataAccess.Implementation
                 }
 
                 return _categoryRepository;
+            }
+        }
+
+        public IArticleContributorRepository ArticleContributorRepository
+        {
+            get
+            {
+                if(_articleContributorRepository == null)
+                {
+                    _articleContributorRepository = new ArticleContributorRepository(_connection);
+                }
+
+                return _articleContributorRepository;
             }
         }
 

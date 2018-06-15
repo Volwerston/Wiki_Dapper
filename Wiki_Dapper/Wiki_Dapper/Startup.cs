@@ -14,6 +14,7 @@ using Wiki_Dapper.Models;
 using Wiki_Dapper.DataAccess.Interfaces;
 using Wiki_Dapper.DataAccess.Implementation;
 using System.Configuration;
+using Wiki_Dapper.Services;
 
 namespace Wiki_Dapper
 {
@@ -37,6 +38,8 @@ namespace Wiki_Dapper
                 .AddDefaultTokenProviders();
 
             services.AddScoped<IUnitOfWork>(sp => new UnitOfWork(Configuration["ConnectionStrings:DefaultConnection"]));
+
+            services.AddScoped<ArticleService>();
 
             //Populates db
             //services.AddSingleton<PrePopulateData>();

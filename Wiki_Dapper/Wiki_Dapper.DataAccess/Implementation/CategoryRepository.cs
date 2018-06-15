@@ -19,6 +19,13 @@ namespace Wiki_Dapper.DataAccess.Implementation
             _connection = connection;
         }
 
+        public void Add(Category entity)
+        {
+            string sql = "INSERT INTO [Categories] VALUES (@Title, @CreatorId)";
+
+            _connection.Execute(sql, entity);
+        }
+
         public void Delete(Category entity)
         {
             string sql = "DELETE FROM [Categories] WHERE Id=@id";
