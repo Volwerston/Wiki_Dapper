@@ -110,13 +110,15 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            @foreach (var comment in ViewBag.Comments)
-            {
+
+        @foreach (var comment in ViewBag.Comments)
+        {
+            <tr>
                 <td>@(comment.Author.UserName)</td>
                 <td>@(comment.AddingTime)</td>
                 <td>@(comment.Text)</td>
-            }
-        </tr>
+            </tr>
+        }
+
     </tbody>
 </table>

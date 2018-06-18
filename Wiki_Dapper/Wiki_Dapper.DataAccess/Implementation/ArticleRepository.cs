@@ -96,15 +96,21 @@ namespace Wiki_Dapper.DataAccess.Implementation
                            ON A.Id = AC.ArticleId
                            WHERE A.Id=@id";
 
-            var toReturn = _connection.Query<Article, ApplicationUser, Category, ArticleContributor, Article>(sql,
+            Article toReturn = null;
+
+            var query = _connection.Query<Article, ApplicationUser, Category, ArticleContributor, Article>(sql,
                 (article, appUser, category, articleContributor) =>
                 {
-                    article.Category = category;
-                    article.Creator = appUser;
+                    if(toReturn == null)
+                    {
+                        toReturn = article;
+                        toReturn.Category = category;
+                        toReturn.Creator = appUser;
+                    }
 
                     if (articleContributor != null )
                     {
-                        article.ArticleContributors.Add(articleContributor);
+                        toReturn.ArticleContributors.Add(articleContributor);
                     }
 
                     return article;
