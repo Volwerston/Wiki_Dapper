@@ -17,6 +17,7 @@ namespace Wiki_Dapper.DataAccess.Implementation
         private IArticleRepository _articleRepository;
         private ICategoryRepository _categoryRepository;
         private IArticleContributorRepository _articleContributorRepository;
+        private ICommentRepository _commentRepository;
         
 
         public UnitOfWork(string connectionString)
@@ -60,6 +61,19 @@ namespace Wiki_Dapper.DataAccess.Implementation
                 }
 
                 return _articleContributorRepository;
+            }
+        }
+
+        public ICommentRepository CommentRepository
+        {
+            get
+            {
+                if(_commentRepository == null)
+                {
+                    _commentRepository = new CommentRepository(_connection);
+                }
+
+                return _commentRepository;
             }
         }
 

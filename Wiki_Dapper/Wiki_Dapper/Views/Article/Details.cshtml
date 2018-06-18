@@ -90,3 +90,33 @@
         }
     </tbody>
 </table>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <br />
+    <a asp-action="Index" asp-controller="Comment" asp-route-id="@(Model.Id)">Create Comment</a>
+}
+
+
+<br />
+<br />
+
+<table>
+    <thead>
+        <tr>
+            <th>Author</th>
+            <th>Adding Time</th>
+            <th>Text</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            @foreach (var comment in ViewBag.Comments)
+            {
+                <td>@(comment.Author.UserName)</td>
+                <td>@(comment.AddingTime)</td>
+                <td>@(comment.Text)</td>
+            }
+        </tr>
+    </tbody>
+</table>

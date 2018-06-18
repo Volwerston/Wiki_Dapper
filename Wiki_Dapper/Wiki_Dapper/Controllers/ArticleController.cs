@@ -83,6 +83,8 @@ namespace Wiki_Dapper.Controllers
 
             ViewBag.Contributors = _articleService.GetContributors(article.ArticleContributors);
 
+            ViewBag.Comments = _unitOfWork.CommentRepository.GetCommentsByArticle(id);
+
             return View(article);
         }
     }

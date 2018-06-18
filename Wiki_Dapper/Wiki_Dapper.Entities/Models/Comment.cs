@@ -15,5 +15,8 @@ namespace Wiki_Dapper.Entities.Models
 
         public string AuthorId { get; set; }
         public ApplicationUser Author { get; set; }
+
+        public int ArticleId { get; set; }
+        public Article Article { get; set; }
     }
 }

@@ -11,5 +11,6 @@ namespace Wiki_Dapper.DataAccess.Interfaces
         IArticleRepository ArticleRepository { get; }
         ICategoryRepository CategoryRepository { get; }
         IArticleContributorRepository ArticleContributorRepository { get; }
+        ICommentRepository CommentRepository { get; }
     }
 }

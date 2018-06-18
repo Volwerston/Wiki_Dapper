@@ -47,6 +47,7 @@
     <Compile Include="Implementation\ArticleContributorRepository.cs" />
     <Compile Include="Implementation\ArticleRepository.cs" />
     <Compile Include="Implementation\CategoryRepository.cs" />
+    <Compile Include="Implementation\CommentRepository.cs" />
     <Compile Include="Implementation\UnitOfWork.cs" />
     <Compile Include="Interfaces\IArticleContributorRepository.cs" />
     <Compile Include="Interfaces\IArticleRepository.cs" />
