@@ -37,14 +37,7 @@ namespace Wiki_Dapper.DataAccess.Implementation
 
         public IEnumerable<Article> GetAll()
         {
-            string sql = @"SELECT * FROM [Articles] A
-                           INNER JOIN [AspNetUsers] U
-                           ON A.CreatorId=U.Id
-                           INNER JOIN [Categories] C
-                           ON A.CategoryId=C.Id
-                           LEFT JOIN [ArticleContributors] AC
-                           ON A.Id = AC.ArticleId
-                           ";
+            string sql = "sp_GetArticle";
 
             var articleDictionary = new Dictionary<int, Article>();
 
@@ -68,7 +61,9 @@ namespace Wiki_Dapper.DataAccess.Implementation
                     }
 
                     return articleEntry;
-                })
+                },
+                param: new { id = (null as string) },
+                commandType: CommandType.StoredProcedure)
                 .Distinct()
                 .ToList();
 
@@ -87,14 +82,7 @@ namespace Wiki_Dapper.DataAccess.Implementation
 
         public Article GetByKey(object key)
         {
-            string sql = @"SELECT * FROM [Articles] A
-                           INNER JOIN [AspNetUsers] U
-                           ON A.CreatorId=U.Id
-                           INNER JOIN [Categories] C
-                           ON A.CategoryId=C.Id
-                           LEFT JOIN [ArticleContributors] AC
-                           ON A.Id = AC.ArticleId
-                           WHERE A.Id=@id";
+            string sql = "sp_GetArticle";
 
             Article toReturn = null;
 
@@ -115,7 +103,8 @@ namespace Wiki_Dapper.DataAccess.Implementation
 
                     return article;
                 },
-                new { id = key })
+                new { id = key }, 
+                commandType: CommandType.StoredProcedure)
                 .FirstOrDefault();
 
             return toReturn;
