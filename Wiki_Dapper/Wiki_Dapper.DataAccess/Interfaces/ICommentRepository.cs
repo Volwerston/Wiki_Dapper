@@ -10,5 +10,6 @@ namespace Wiki_Dapper.DataAccess.Interfaces
     public interface ICommentRepository : IRepository<Comment>
     {
         IEnumerable<Comment> GetCommentsByArticle(int articleId);
+        void DeleteArticleComments(int articleId);
     }
 }

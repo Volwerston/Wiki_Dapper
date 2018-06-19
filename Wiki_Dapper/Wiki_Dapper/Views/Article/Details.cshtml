@@ -56,7 +56,7 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", "Article", new { id = Model.Id }) |
+    <a asp-action="Edit" asp-controller="Article" asp-route-id="@(Model.Id)">Edit</a> |
     <a asp-action="Index" asp-controller="Home">Back to List</a>
 </div>
 

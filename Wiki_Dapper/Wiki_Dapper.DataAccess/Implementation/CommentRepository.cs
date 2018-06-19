@@ -31,6 +31,13 @@ namespace Wiki_Dapper.DataAccess.Implementation
             throw new NotImplementedException();
         }
 
+        public void DeleteArticleComments(int articleId)
+        {
+            string sql = "DELETE FROM [Comments] WHERE [ArticleId] = @aid";
+
+            _connection.Execute(sql, new { aid = articleId });
+        }
+
         public IEnumerable<Comment> GetAll()
         {
             throw new NotImplementedException();

@@ -40,6 +40,7 @@ namespace Wiki_Dapper.Services
             if (toDelete == null || toDelete.CreatorId != userId) return;
 
             _unitOfWork.ArticleContributorRepository.DeleteArticleContributors(toDelete.Id);
+            _unitOfWork.CommentRepository.DeleteArticleComments(toDelete.Id);
 
             _unitOfWork.ArticleRepository.Delete(toDelete);
         }
