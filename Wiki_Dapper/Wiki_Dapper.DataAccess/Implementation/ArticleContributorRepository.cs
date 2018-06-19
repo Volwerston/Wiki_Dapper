@@ -33,7 +33,9 @@ namespace Wiki_Dapper.DataAccess.Implementation
 
         public void Delete(ArticleContributor entity)
         {
-            throw new NotImplementedException();
+            string sql = "DELETE FROM [ArticleContributors] WHERE [Id] = @eid";
+
+            _connection.Execute(sql, new { eid = entity.Id });
         }
 
         public void DeleteArticleContributors(int articleId)
@@ -47,7 +49,9 @@ namespace Wiki_Dapper.DataAccess.Implementation
 
         public IEnumerable<ArticleContributor> GetAll()
         {
-            throw new NotImplementedException();
+            string sql = "SELECT * FROM [ArticleContributors]";
+
+            return _connection.Query<ArticleContributor>(sql);
         }
 
         public IEnumerable<ArticleContributor> GetArticleContributors(int articleId)
@@ -59,12 +63,20 @@ namespace Wiki_Dapper.DataAccess.Implementation
 
         public ArticleContributor GetByKey(object key)
         {
-            throw new NotImplementedException();
+            string sql = "SELECT * FROM [ArticleContributors] WHERE [Id]=@id";
+
+            return _connection.QuerySingleOrDefault<ArticleContributor>(sql, new { id = key });
         }
 
         public void Update(ArticleContributor entity)
         {
-            throw new NotImplementedException();
+            string sql = @"UPDATE [ArticleContributors]
+                           SET [ArticleId] = @ArticleId,
+                               [ContributorId] = @ContributorId,
+                               [ContributionTime] = @ContributionTime
+                               WHERE [Id] = @Id";
+
+            _connection.Execute(sql, entity);
         }
     }
 }

@@ -22,6 +22,8 @@ namespace Wiki_Dapper.Controllers
         {
             IEnumerable<Article> articles = _unitOfWork.ArticleRepository.GetAll();
 
+            ViewBag.Statistics = _unitOfWork.GetArticleStatistics();
+
             return View(articles);
         }
     }

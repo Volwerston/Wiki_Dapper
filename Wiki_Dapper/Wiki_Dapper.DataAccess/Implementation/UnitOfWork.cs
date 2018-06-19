@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Wiki_Dapper.DataAccess.Interfaces;
+using Wiki_Dapper.Models.DTO;
 
 namespace Wiki_Dapper.DataAccess.Implementation
 {
@@ -81,5 +83,16 @@ namespace Wiki_Dapper.DataAccess.Implementation
         {
             _connection.Dispose();
         }
+
+        #region Views
+
+        public IEnumerable<StatisticsDTO> GetArticleStatistics()
+        {
+            string sql = "SELECT * FROM VW_Article_Statistics";
+
+            return _connection.Query<StatisticsDTO>(sql);
+        }
+
+        #endregion
     }
 }

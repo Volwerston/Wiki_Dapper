@@ -66,3 +66,51 @@
         }
     </tbody>
 </table>
+
+<h2>Statistics</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Article Id
+            </th>
+            <th>
+                Article Title
+            </th>
+            <th>
+                Creator Login
+            </th>
+            <th>
+                Comments
+            </th>
+            <th>
+                Contributors
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.Statistics)
+        {
+            <tr>
+                <td>
+                    @item.ArticleId
+                </td>
+                <td>
+                    @item.ArticleTitle
+                </td>
+                <td>
+                    @item.CreatorLogin
+                </td>
+                <td>
+                    @item.Comments
+                </td>
+                <td>
+                    @item.Contributors
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

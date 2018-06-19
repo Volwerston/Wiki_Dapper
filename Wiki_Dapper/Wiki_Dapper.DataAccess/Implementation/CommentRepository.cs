@@ -28,7 +28,9 @@ namespace Wiki_Dapper.DataAccess.Implementation
 
         public void Delete(Comment entity)
         {
-            throw new NotImplementedException();
+            string sql = "DELETE FROM [Comments] WHERE [id] = @eid";
+
+            _connection.Execute(sql, new { eid = entity.Id });
         }
 
         public void DeleteArticleComments(int articleId)
@@ -40,12 +42,17 @@ namespace Wiki_Dapper.DataAccess.Implementation
 
         public IEnumerable<Comment> GetAll()
         {
-            throw new NotImplementedException();
+            string sql = "SELECT * FROM [Comments]";
+
+            return _connection.Query<Comment>(sql);
         }
 
         public Comment GetByKey(object key)
         {
-            throw new NotImplementedException();
+            string sql = @"SELECT * FROM [Comments]
+                           WHERE [Id] = @id";
+
+            return _connection.QueryFirstOrDefault<Comment>(sql, new { id = key });
         }
 
         public IEnumerable<Comment> GetCommentsByArticle(int articleId)
@@ -81,7 +88,13 @@ namespace Wiki_Dapper.DataAccess.Implementation
 
         public void Update(Comment entity)
         {
-            throw new NotImplementedException();
+            string sql = @"UPDATE [Comments]
+                           SET [Text] = @Text,
+                               [AddingTime] = @AddingTime,
+                               [ArticleId] = @ArticleId,
+                               [AuthorId] = @AuthorId";
+
+            _connection.Execute(sql, entity);
         }
     }
 }
