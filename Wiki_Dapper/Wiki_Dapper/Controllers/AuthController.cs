@@ -48,15 +48,16 @@ namespace Wiki_Dapper.Controllers
             }        
         }
 
-        public IActionResult Login()
+        public IActionResult Login(string returnUrl)
         {
             LoginViewModel toAdd = new LoginViewModel();
+            ViewBag.ReturnUrl = returnUrl;
 
             return View(toAdd);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel toLogin)
+        public async Task<IActionResult> Login(LoginViewModel toLogin, string returnUrl)
         {
             ApplicationUser appUser = await userManager.FindByNameAsync(toLogin.Login);
 
@@ -65,7 +66,7 @@ namespace Wiki_Dapper.Controllers
                 Microsoft.AspNetCore.Identity.SignInResult result = await signInManager.PasswordSignInAsync(appUser, toLogin.Password, false, false);
             }
 
-            return RedirectToAction("Index", "Home");
+            return Redirect(returnUrl ?? "/");
         }
 
         public async Task<IActionResult> Logout()

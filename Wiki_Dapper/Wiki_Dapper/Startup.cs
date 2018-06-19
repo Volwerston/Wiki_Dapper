@@ -15,6 +15,7 @@ using Wiki_Dapper.DataAccess.Interfaces;
 using Wiki_Dapper.DataAccess.Implementation;
 using System.Configuration;
 using Wiki_Dapper.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace Wiki_Dapper
 {
@@ -37,19 +38,22 @@ namespace Wiki_Dapper
                 .AddEntityFrameworkStores<AccountDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.ConfigureApplicationCookie(options => options.LoginPath = "/Auth/Login");
+
             services.AddScoped<IUnitOfWork>(sp => new UnitOfWork(Configuration["ConnectionStrings:DefaultConnection"]));
 
             services.AddScoped<ArticleService>();
+
 
             //Populates db
             //services.AddSingleton<PrePopulateData>();
             //services.BuildServiceProvider().GetService<PrePopulateData>()?.PrePopulate();
         }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
             ConfigureDal(services);
         }
 
@@ -68,6 +72,7 @@ namespace Wiki_Dapper
 
             app.UseStaticFiles();
             app.UseIdentity();
+
 
             app.UseMvc(routes =>
             {
